@@ -1,4 +1,4 @@
-function RoomPage() {
+function RoomPage(): JSX.Element {
   return (
     <main className="page__main page__main--property">
       <section className="property">
