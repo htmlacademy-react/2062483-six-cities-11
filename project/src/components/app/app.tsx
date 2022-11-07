@@ -6,18 +6,21 @@ import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import RoomPage from '../../pages/room-page/room-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import {Offer} from '../../types/offers-type';
+import {Review} from '../../types/reviews-type';
 
 type AppOfferProps = {
-  offersCount: number;
+  offers: Offer[];
+  reviews: Review[];
 }
 
-function App({offersCount}: AppOfferProps): JSX.Element{
+function App({offers, reviews}: AppOfferProps): JSX.Element{
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage offersCount={offersCount} />}
+          element={<MainPage offers={offers} />}
         />
         <Route
           path={AppRoute.Login}

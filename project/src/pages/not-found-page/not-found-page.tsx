@@ -8,7 +8,7 @@ function NotFoundPage(): JSX.Element {
       <Header />
 
       <section className={styles.section}>
-        <h1 className={styles.h1}>404. Page not found</h1>
+        <h1 className={styles.title}>404. Page not found</h1>
         <a href="/">Вернуться на главную</a>
       </section>
 
