@@ -16,6 +16,7 @@ function CardsList({offers}: CardListProps): JSX.Element {
       {offers.map((offer) => (
         <Card
           offer={offer}
+          cardType={'cities'}
           key={offer.id}
           onCardMouseEnter={handleMouseEnterOnCard}
         />

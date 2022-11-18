@@ -1,11 +1,11 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 import PrivateRoute from '../private-route/private-route';
-import MainPage from '../../pages/main-page/main-page';
-import LoginPage from '../../pages/login-page/login-page';
-import FavoritesPage from '../../pages/favorites-page/favorites-page';
-import RoomPage from '../../pages/room-page/room-page';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import MainPage from '../../pages/main/main';
+import LoginPage from '../../pages/login/login';
+import FavoritesPage from '../../pages/favorites/favorites';
+import RoomPage from '../../pages/room/room';
+import NotFoundPage from '../../pages/not-found/not-found';
 import {Offer} from '../../types/offers-type';
 import {Review} from '../../types/reviews-type';
 
@@ -30,7 +30,7 @@ function App({offers, reviews}: AppOfferProps): JSX.Element{
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
+              <FavoritesPage offers={offers} />
             </PrivateRoute>
           }
         />
