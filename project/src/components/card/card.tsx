@@ -1,40 +1,73 @@
-function Card() {
+import cn from 'classnames';
+import {Offer} from '../../types/offers-type';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import {
+  MAX_RATING,
+  cardImageSize,
+  AppRoute
+} from '../../constants';
+import {
+  getWordCapitalized,
+  getRatingInPercent
+} from '../../utils';
+import {Link} from 'react-router-dom';
+
+type CardProps = {
+  offer: Offer;
+  cardType: 'favorites' | 'cities';
+  onCardMouseEnter?: (offerId: number | null) => void;
+}
+
+function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
+  const {title, type, previewImage, price, rating, isPremium, isFavorite} = offer;
+  const {width, height} = cardImageSize[cardType];
+  const infoClassName = cn(cardType === 'favorites' ? 'favorites__card-info' : 'place-card__info');
+
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
+    <article
+      className={`${cardType}__card place-card`}
+      onMouseEnter={() => onCardMouseEnter?.(offer.id)}
+      onMouseLeave={() => onCardMouseEnter?.(null)}
+    >
+      {isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`${AppRoute.Room}`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={width}
+            height={height}
+            alt="Place"
+          />
+        </Link>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="/#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place"/>
-        </a>
-      </div>
-      <div className="place-card__info">
+      <div className={infoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton className={cn(isFavorite && 'place-card__bookmark-button--active')} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: `${getRatingInPercent(rating, MAX_RATING)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={`${AppRoute.Room}`}>
+            {title}
+          </Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{getWordCapitalized(type)}</p>
       </div>
     </article>
   );
 }
 
 export default Card;
+
