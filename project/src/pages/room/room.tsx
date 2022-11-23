@@ -1,5 +1,5 @@
-import Map from '../../components/map/map';
-import ReviewForm from '../../components/reviews-form/reviews-form';
+// import Map from '../../components/map/map';
+import ReviewForm from '../../components/review-form/review-form';
 import Layout from '../../components/layout/layout';
 
 function RoomPage(): JSX.Element {
@@ -155,7 +155,7 @@ function RoomPage(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map className="property__map" />
+          {/* <Map className="property__map" /> */}
         </section>
         <div className="container">
           <section className="near-places places">

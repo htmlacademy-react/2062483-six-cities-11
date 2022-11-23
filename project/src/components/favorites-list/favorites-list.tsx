@@ -5,13 +5,11 @@ type FavoritesListProps = {
   offers: Offer[];
 }
 
-function FavotitesList({offers} : FavoritesListProps): JSX.Element {
+function FavoritesList({offers}: FavoritesListProps): JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
-  type ReduceReturnType = {
-    [key: string]: Offer[];
-  }
-  const offersBylocation = favoriteOffers.reduce<ReduceReturnType>((cityOffers, currentOffer) => {
+
+  const offersByLocation = favoriteOffers.reduce<Record<string, Offer[]>>((cityOffers, currentOffer) => {
     if (!cityOffers[currentOffer.city.name]) {
       cityOffers[currentOffer.city.name] = [];
     }
@@ -22,7 +20,7 @@ function FavotitesList({offers} : FavoritesListProps): JSX.Element {
 
   return (
     <ul className="favorites__list">
-      {Object.keys(offersBylocation).map((city) => (
+      {Object.entries(offersByLocation).map(([city, cityOffers]) => (
         <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
@@ -32,7 +30,7 @@ function FavotitesList({offers} : FavoritesListProps): JSX.Element {
             </div>
           </div>
           <div className="favorites__places">
-            {offersBylocation[city].map((offer) =>
+            {cityOffers.map((offer) =>
               offer.city.name === city
               &&
               <Card
@@ -48,4 +46,4 @@ function FavotitesList({offers} : FavoritesListProps): JSX.Element {
   );
 }
 
-export default FavotitesList;
+export default FavoritesList;

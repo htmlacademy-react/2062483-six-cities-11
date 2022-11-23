@@ -57,3 +57,5 @@ export const RATING = [
     title: 'perfect',
   }
 ];
+
+export const URL_MARKER_DEFAULT = '/img/pin.svg';
