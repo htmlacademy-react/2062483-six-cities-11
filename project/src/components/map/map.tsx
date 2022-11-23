@@ -14,8 +14,8 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [30, 40],
-  iconAnchor: [15, 40]
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
 });
 
 function Map({className, offers, city}: MapProps): JSX.Element{
@@ -39,7 +39,9 @@ function Map({className, offers, city}: MapProps): JSX.Element{
         markerGroup.addLayer(marker);
       });
     }
-    return () => {markerGroup.clearLayers();};
+    return () => {
+      markerGroup.clearLayers();
+    };
   });
 
   return (
