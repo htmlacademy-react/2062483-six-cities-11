@@ -1,13 +1,13 @@
-import FavotitesList from '../../components/favorites-list/favorites-list';
+import FavoritesList from '../../components/favorites-list/favorites-list';
 import Layout from '../../components/layout/layout';
 import Footer from '../../components/footer/footer';
 import {Offer} from '../../types/offers-type';
 
-type FavotitesPageProps = {
+type FavoritesPageProps = {
   offers: Offer[];
 }
 
-function FavotitesPage({offers} : FavotitesPageProps): JSX.Element {
+function FavoritesPage({offers} : FavoritesPageProps): JSX.Element {
   return (
     <Layout className={[]}>
 
@@ -15,7 +15,7 @@ function FavotitesPage({offers} : FavotitesPageProps): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavotitesList offers={offers} />
+            <FavoritesList offers={offers} />
           </section>
         </div>
       </main>
@@ -25,4 +25,4 @@ function FavotitesPage({offers} : FavotitesPageProps): JSX.Element {
   );
 }
 
-export default FavotitesPage;
+export default FavoritesPage;
