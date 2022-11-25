@@ -14,7 +14,7 @@ export const reviews: Review[] = [
     date: '2022-10-03T13:58:46.511Z'
   },
   {
-    id: 1,
+    id: 2,
     user: {
       id: 19,
       isPro: false,
@@ -26,7 +26,7 @@ export const reviews: Review[] = [
     date: '2022-10-08T13:58:46.511Z'
   },
   {
-    id: 1,
+    id: 3,
     user: {
       id: 14,
       isPro: true,
@@ -38,7 +38,7 @@ export const reviews: Review[] = [
     date: '2022-09-26T13:58:46.511Z'
   },
   {
-    id: 3,
+    id: 4,
     user: {
       id: 12,
       isPro: true,
