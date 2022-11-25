@@ -14,18 +14,19 @@ import {Link} from 'react-router-dom';
 
 type CardProps = {
   offer: Offer;
-  cardType: 'favorites' | 'cities';
+  cardType: 'favorites' | 'cities' | 'near';
   onCardMouseEnter?: (offerId: number | null) => void;
 }
 
 function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
   const {title, type, previewImage, price, rating, isPremium, isFavorite} = offer;
-  const {width, height} = cardImageSize[cardType];
+  const {width, height, className} = cardImageSize[cardType];
+
   const infoClassName = cn(cardType === 'favorites' ? 'favorites__card-info' : 'place-card__info');
 
   return (
     <article
-      className={`${cardType}__card place-card`}
+      className={`${className}__card place-card`}
       onMouseEnter={() => onCardMouseEnter?.(offer.id)}
       onMouseLeave={() => onCardMouseEnter?.(null)}
     >
@@ -33,7 +34,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Room}`}>
           <img
             className="place-card__image"

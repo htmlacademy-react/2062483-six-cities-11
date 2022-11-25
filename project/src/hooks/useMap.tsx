@@ -1,7 +1,7 @@
 
 
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
-import {Map, TileLayer} from 'leaflet';
+import {Map, TileLayer,} from 'leaflet';
 import {Location} from '../types/offers-type';
 
 const MapSettings = {
@@ -23,7 +23,8 @@ function useMap(
           lat: city.latitude,
           lng: city.longitude
         },
-        zoom: 10
+        zoom: 10,
+        scrollWheelZoom: false
       });
 
       const layer = new TileLayer(

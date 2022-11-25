@@ -26,13 +26,20 @@ export const LogoSize = {
 
 export const cardImageSize = {
   favorites: {
+    className: 'favorites',
     width: 150,
     height: 110
   },
   cities: {
+    className: 'cities',
     width: 260,
     height: 200
   },
+  near: {
+    className: 'near-places',
+    width: 260,
+    height: 200
+  }
 };
 
 export const RATING = [
@@ -59,3 +66,8 @@ export const RATING = [
 ];
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
+
+export const CardListClassName = {
+  cities: 'cities__places-list',
+  near: 'near-places__list'
+};
