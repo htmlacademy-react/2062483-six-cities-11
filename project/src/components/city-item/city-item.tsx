@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import {SyntheticEvent} from 'react';
+import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {setCurrentCity} from '../../store/action';
 
@@ -11,7 +11,7 @@ type CityItemPtops = {
 function CityItem({cityName, isActive}: CityItemPtops): JSX.Element{
   const dispatch = useAppDispatch();
 
-  const onCityClick = (evt: SyntheticEvent) => {
+  const onCityClick = (evt: MouseEvent) => {
     evt.preventDefault();
     dispatch(setCurrentCity(cityName));
   };
