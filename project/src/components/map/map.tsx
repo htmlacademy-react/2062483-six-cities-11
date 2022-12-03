@@ -22,6 +22,10 @@ function Map({className, offers, city}: MapProps): JSX.Element{
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
+  useEffect(() => {
+    map?.setView([city.latitude, city.longitude], city.zoom);
+  }, [city, map]);
+
   const markerGroup = new LayerGroup();
 
   useEffect(() => {
@@ -32,12 +36,11 @@ function Map({className, offers, city}: MapProps): JSX.Element{
           lng: offer.location.longitude
         });
 
-        marker
-          .setIcon(defaultCustomIcon)
-          .addTo(map);
+        marker.setIcon(defaultCustomIcon);
 
         markerGroup.addLayer(marker);
       });
+      markerGroup.addTo(map);
     }
     return () => {
       markerGroup.clearLayers();

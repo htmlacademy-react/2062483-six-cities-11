@@ -6,21 +6,22 @@ import LoginPage from '../../pages/login/login';
 import FavoritesPage from '../../pages/favorites/favorites';
 import RoomPage from '../../pages/room/room';
 import NotFoundPage from '../../pages/not-found/not-found';
-import {Offer} from '../../types/offers-type';
 import {Review} from '../../types/reviews-type';
+import {useAppSelector} from '../../hooks';
 
 type AppOfferProps = {
-  offers: Offer[];
   reviews: Review[];
 }
 
-function App({offers, reviews}: AppOfferProps): JSX.Element{
+function App({reviews}: AppOfferProps): JSX.Element{
+  const offers = useAppSelector((state) => state.offers);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage offers={offers} />}
+          element={<MainPage />}
         />
         <Route
           path={AppRoute.Login}

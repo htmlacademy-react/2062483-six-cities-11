@@ -5,6 +5,7 @@ import {Review} from '../../types/reviews-type';
 import ReviewList from '../../components/review-list/review-list';
 import {Offer} from '../../types/offers-type';
 import CardList from '../../components/card-list/card-list';
+import {COUNT_NEAR_PLACES} from '../../constants';
 
 type RoomPageProps = {
   reviews: Review[];
@@ -141,12 +142,12 @@ function RoomPage({reviews, offers}: RoomPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map className="property__map" offers={offers.slice(0, 3)} city={offers[0].city.location} />
+          <Map className="property__map" offers={offers.slice(0, COUNT_NEAR_PLACES)} city={offers[0].city.location} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardList cardListType='near' offers={offers.slice(0, 3)} />
+            <CardList cardListType='near' offers={offers.slice(0, COUNT_NEAR_PLACES)} />
           </section>
         </div>
       </main>

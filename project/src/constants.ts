@@ -71,3 +71,9 @@ export const CardListClassName = {
   cities: 'cities__places-list',
   near: 'near-places__list'
 };
+
+export const COUNT_NEAR_PLACES = 3;
+
+export const DEFAULT_CITY = 'Paris';
+
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

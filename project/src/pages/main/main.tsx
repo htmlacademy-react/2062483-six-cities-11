@@ -1,33 +1,24 @@
-import CardList from '../../components/card-list/card-list';
 import Layout from '../../components/layout/layout';
-import Map from '../../components/map/map';
-import Tabs from '../../components/tabs/tabs';
-import SortForm from '../../components/sort-form/sort-form';
-import {Offer} from '../../types/offers-type';
+import CityTabs from '../../components/cities-tabs/cities-tabs';
+import {CITIES} from '../../constants';
+import {getOffersByCity} from '../../utils';
+import {useAppSelector} from '../../hooks';
+import CitiesWithOffers from '../../components/cities-with-offers/cities-with-offers';
+import CitiesEmptyOffers from '../../components/cities-empty/cities-empty';
 
-type MainPageProps = {
-  offers: Offer[];
-}
+function MainPage(): JSX.Element {
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) => state.offers);
+  const offersByCity = getOffersByCity(currentCity, offers);
 
-function MainPage({offers}: MainPageProps): JSX.Element {
   return (
-    <Layout className={['page--gray', 'page--main']}>
+    <Layout className={['page--gray', 'page--main', `${offersByCity.length ? '' : 'page__main--index-empty'}`]}>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs />
+        <CityTabs cities={CITIES} activeCity={currentCity} />
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
-              <SortForm />
-              <CardList cardListType='cities' offers={offers} />
-            </section>
-            <div className="cities__right-section">
-              <Map className="cities__map" offers={offers} city={offers[0].city.location} />
-            </div>
-          </div>
+          {offersByCity.length ? <CitiesWithOffers offersByCity={offersByCity} currentCity={currentCity} /> : <CitiesEmptyOffers />}
         </div>
       </main>
 
