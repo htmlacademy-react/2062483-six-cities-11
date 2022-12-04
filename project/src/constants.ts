@@ -67,6 +67,8 @@ export const RATING = [
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 
+export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+
 export const CardListClassName = {
   cities: 'cities__places-list',
   near: 'near-places__list'
@@ -77,3 +79,12 @@ export const COUNT_NEAR_PLACES = 3;
 export const DEFAULT_CITY = 'Paris';
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_SORT_OFFERS_TYPE = 'Popular';
+
+export const SortType = {
+  Popular: 'Popular',
+  lowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  Rating: 'Top rated first'
+};

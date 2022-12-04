@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Card from '../card/card';
 import { Offer } from '../../types/offers-type';
 import {CardListClassName} from '../../constants';
@@ -6,14 +5,10 @@ import {CardListClassName} from '../../constants';
 type CardListProps = {
   offers: Offer[];
   cardListType: 'cities' | 'near';
+  onCardMouseEnter?: (offerId: number | null) => void;
 }
 
-function CardsList({offers, cardListType}: CardListProps): JSX.Element {
-
-  const [, setActiveCard] = useState<number | null>(null);
-
-  const handleMouseEnterOnCard = (offerId : number | null) => setActiveCard(offerId);
-
+function CardsList({offers, cardListType, onCardMouseEnter}: CardListProps): JSX.Element {
   return (
     <div className={`${CardListClassName[cardListType]} places__list`}>
       {offers.map((offer) => (
@@ -21,7 +16,7 @@ function CardsList({offers, cardListType}: CardListProps): JSX.Element {
           offer={offer}
           cardType={cardListType}
           key={offer.id}
-          onCardMouseEnter={handleMouseEnterOnCard}
+          onCardMouseEnter={onCardMouseEnter}
         />
       ))}
     </div>);
