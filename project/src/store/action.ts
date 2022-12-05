@@ -12,3 +12,10 @@ export const setOffers = createAction('setOffers', (offers: Offer[]) => ({
     offers: offers
   }
 }));
+
+export const setSortType = createAction('setSortType', (type: string) => ({
+  payload: {
+    type
+  }
+})
+);

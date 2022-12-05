@@ -122,10 +122,10 @@ export const offers: Offer[] = [
   },
   {
     city: {
-      name: 'Cologne',
+      name: 'Amsterdam',
       location: {
-        latitude: 50.9333300943508,
-        longitude: 6.950000066406198,
+        latitude: 52.3809553943508,
+        longitude: 4.86309666406198,
         zoom: 13
       }
     },
@@ -173,8 +173,8 @@ export const offers: Offer[] = [
     },
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     location: {
-      latitude: 50.9333300943508,
-      longitude: 6.950000066406198,
+      latitude: 52.3809553943508,
+      longitude: 4.86309666406198,
       zoom: 13
     },
     id: 3
