@@ -10,6 +10,7 @@ type SortTabProps = {
 
 function SortTab({isActive, tabName, sortListStatus}: SortTabProps): JSX.Element{
   const dispatch = useAppDispatch();
+
   const onSortClick = () => {
     dispatch(setSortType(tabName));
     sortListStatus(false);

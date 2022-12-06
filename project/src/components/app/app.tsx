@@ -8,6 +8,7 @@ import RoomPage from '../../pages/room/room';
 import NotFoundPage from '../../pages/not-found/not-found';
 import {Review} from '../../types/reviews-type';
 import {useAppSelector} from '../../hooks';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 type AppOfferProps = {
   reviews: Review[];
@@ -15,6 +16,14 @@ type AppOfferProps = {
 
 function App({reviews}: AppOfferProps): JSX.Element{
   const offers = useAppSelector((state) => state.offers);
+
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersLoaded);
+
+  if (!isOffersDataLoading) {
+    return (
+      <LoadingSpinner />
+    );
+  }
 
   return (
     <BrowserRouter>
