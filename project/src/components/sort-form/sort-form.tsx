@@ -2,17 +2,21 @@ import cn from 'classnames';
 import {SortType} from '../../constants';
 import SortTab from '../sort-tab/sort-tab';
 import {useAppSelector} from '../../hooks';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 function SortForm(): JSX.Element{
   const [isSortOpen, setSortType] = useState(false);
 
+  const ref = useRef(null);
   const onSortListClick = () => setSortType(!isSortOpen);
 
   const currentSortType = useAppSelector((state) => state.sortOffersType);
 
+  useOnClickOutside(ref, () => setSortType(false));
+
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" ref={ref}>
       <span className="places__sorting-caption">Sort by&nbsp;</span>
       <span className="places__sorting-type" tabIndex={0} onClick={onSortListClick}>
         {currentSortType}
@@ -21,7 +25,14 @@ function SortForm(): JSX.Element{
         </svg>
       </span>
       <ul className={cn('places__options places__options--custom', isSortOpen && 'places__options--opened')}>
-        {Object.values(SortType).map((type) => <SortTab key={type} isActive={type === currentSortType} tabName={type} sortListStatus={setSortType} />)}
+        {Object.values(SortType).map((type) => (
+          <SortTab
+            key={type}
+            isActive={type === currentSortType}
+            tabName={type}
+            sortListStatus={setSortType}
+          />
+        ))}
       </ul>
     </form>
   );

@@ -22,7 +22,7 @@ export const getSortOffers = (sortType: string, offers: Offer[]) => {
   switch (sortType) {
     case SortType.Popular:
       return [...offers];
-    case SortType.lowToHigh:
+    case SortType.LowToHigh:
       return [...offers].sort(sortlowToHigh);
     case SortType.HighToLow:
       return [...offers].sort(sortHighToLow);

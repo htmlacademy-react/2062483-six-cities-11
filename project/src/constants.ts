@@ -84,7 +84,19 @@ export const DEFAULT_SORT_OFFERS_TYPE = 'Popular';
 
 export const SortType = {
   Popular: 'Popular',
-  lowToHigh: 'Price: low to high',
+  LowToHigh: 'Price: low to high',
   HighToLow: 'Price: high to low',
   Rating: 'Top rated first'
 };
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+  Reviews = '/comments',
+  Favorite = '/favorite'
+}
+
+export const BACKEND_URL = 'https://11.react.pages.academy/six-cities';
+
+export const REQUEST_TIMEOUT = 5000;

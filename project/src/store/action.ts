@@ -17,5 +17,11 @@ export const setSortType = createAction('setSortType', (type: string) => ({
   payload: {
     type
   }
-})
-);
+}));
+
+export const setOffersLoaded = createAction('setOffersLoaded', (status: boolean) => ({
+  payload: {
+    status
+  }
+}));
+
