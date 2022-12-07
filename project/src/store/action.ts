@@ -1,5 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offer} from '../types/offers-type';
+import {UserData} from '../types/user-data';
 
 export const setCurrentCity = createAction('setCurrentCity', (city: string) => ({
   payload: {
@@ -34,5 +35,11 @@ export const setAuthStatus = createAction('setAuthStatus', (authStatus: string) 
 export const setLoginError = createAction('setLoginError', (errorLogin: boolean) => ({
   payload: {
     errorLogin
+  }
+}));
+
+export const setUser = createAction('setUser', (user: UserData | null) => ({
+  payload: {
+    user
   }
 }));

@@ -1,7 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCurrentCity, setOffers, setSortType, setOffersLoaded, setAuthStatus, setLoginError} from './action';
+import {setCurrentCity, setOffers, setSortType, setOffersLoaded, setAuthStatus, setLoginError, setUser} from './action';
 import {Offer} from '../types/offers-type';
-import {DEFAULT_CITY, DEFAULT_SORT_OFFERS_TYPE, UserAuthorizationStatus} from '../constants';
+import {DEFAULT_CITY, DEFAULT_SORT_OFFERS_TYPE, AuthorizationStatus} from '../constants';
+import {UserData} from '../types/user-data';
 
 type InitialState = {
   currentCity: string;
@@ -10,6 +11,7 @@ type InitialState = {
   isOffersLoaded: boolean;
   authorizationStatus: string;
   loginError: boolean;
+  user: UserData | null;
 };
 
 const initialState: InitialState = {
@@ -17,8 +19,9 @@ const initialState: InitialState = {
   offers : [],
   sortOffersType: DEFAULT_SORT_OFFERS_TYPE,
   isOffersLoaded: false,
-  authorizationStatus: UserAuthorizationStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.Unknown,
   loginError: false,
+  user: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -40,5 +43,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoginError, (state, action) => {
       state.loginError = action.payload.errorLogin;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload.user;
     });
 });
