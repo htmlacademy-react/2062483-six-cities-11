@@ -1,13 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCurrentCity, setOffers, setSortType, setOffersLoaded} from './action';
+import {setCurrentCity, setOffers, setSortType, setOffersLoaded, setAuthStatus, setLoginError} from './action';
 import {Offer} from '../types/offers-type';
-import {DEFAULT_CITY, DEFAULT_SORT_OFFERS_TYPE} from '../constants';
+import {DEFAULT_CITY, DEFAULT_SORT_OFFERS_TYPE, UserAuthorizationStatus} from '../constants';
 
 type InitialState = {
   currentCity: string;
   offers: Offer[];
   sortOffersType: string;
   isOffersLoaded: boolean;
+  authorizationStatus: string;
+  loginError: boolean;
 };
 
 const initialState: InitialState = {
@@ -15,6 +17,8 @@ const initialState: InitialState = {
   offers : [],
   sortOffersType: DEFAULT_SORT_OFFERS_TYPE,
   isOffersLoaded: false,
+  authorizationStatus: UserAuthorizationStatus.Unknown,
+  loginError: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -30,5 +34,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersLoaded, (state, action) => {
       state.isOffersLoaded = action.payload.status;
+    })
+    .addCase(setAuthStatus, (state, action) => {
+      state.authorizationStatus = action.payload.authStatus;
+    })
+    .addCase(setLoginError, (state, action) => {
+      state.loginError = action.payload.errorLogin;
     });
 });

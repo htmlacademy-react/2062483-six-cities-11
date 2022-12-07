@@ -1,0 +1,12 @@
+.loginForm__messageError {
+  color: #e45f5f;
+  font-size: 80%;
+  font-weight: lighter;
+  margin-top: -20px;
+ }
+
+.loginForm__borderError {
+  outline: none;
+  border: 2px solid #e08888;
+  border-radius: 5px;
+ }

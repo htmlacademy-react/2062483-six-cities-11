@@ -25,3 +25,14 @@ export const setOffersLoaded = createAction('setOffersLoaded', (status: boolean)
   }
 }));
 
+export const setAuthStatus = createAction('setAuthStatus', (authStatus: string) => ({
+  payload: {
+    authStatus
+  }
+}));
+
+export const setLoginError = createAction('setLoginError', (errorLogin: boolean) => ({
+  payload: {
+    errorLogin
+  }
+}));
