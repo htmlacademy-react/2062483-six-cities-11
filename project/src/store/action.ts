@@ -1,6 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offer} from '../types/offers-type';
 import {UserData} from '../types/user-data';
+import {AppRoute} from '../constants';
 
 export const setCurrentCity = createAction('setCurrentCity', (city: string) => ({
   payload: {
@@ -43,3 +44,11 @@ export const setUser = createAction('setUser', (user: UserData | null) => ({
     user
   }
 }));
+
+export const setFavorites = createAction('setFavorites', (favorites: Offer[]) => ({
+  payload: {
+    favorites
+  }
+}));
+
+export const redirectToRoute = createAction<AppRoute>('page/redirectToRoute');

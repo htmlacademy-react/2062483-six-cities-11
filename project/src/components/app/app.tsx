@@ -1,5 +1,5 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute} from '../../constants';
+import {Route, Routes} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../constants';
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../../pages/main/main';
 import LoginPage from '../../pages/login/login';
@@ -9,24 +9,26 @@ import NotFoundPage from '../../pages/not-found/not-found';
 import {Review} from '../../types/reviews-type';
 import {useAppSelector} from '../../hooks';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppOfferProps = {
   reviews: Review[];
 }
 
 function App({reviews}: AppOfferProps): JSX.Element{
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offers = useAppSelector((state) => state.offers);
-
   const isOffersDataLoading = useAppSelector((state) => state.isOffersLoaded);
 
-  if (!isOffersDataLoading) {
+  if (!isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
       <LoadingSpinner />
     );
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -53,7 +55,7 @@ function App({reviews}: AppOfferProps): JSX.Element{
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCurrentCity, setOffers, setSortType, setOffersLoaded, setAuthStatus, setLoginError, setUser} from './action';
+import {setCurrentCity, setOffers, setSortType, setOffersLoaded, setAuthStatus, setLoginError, setUser, setFavorites} from './action';
 import {Offer} from '../types/offers-type';
 import {DEFAULT_CITY, DEFAULT_SORT_OFFERS_TYPE, AuthorizationStatus} from '../constants';
 import {UserData} from '../types/user-data';
@@ -7,6 +7,7 @@ import {UserData} from '../types/user-data';
 type InitialState = {
   currentCity: string;
   offers: Offer[];
+  favorites: Offer[];
   sortOffersType: string;
   isOffersLoaded: boolean;
   authorizationStatus: string;
@@ -16,7 +17,8 @@ type InitialState = {
 
 const initialState: InitialState = {
   currentCity: DEFAULT_CITY,
-  offers : [],
+  offers: [],
+  favorites: [],
   sortOffersType: DEFAULT_SORT_OFFERS_TYPE,
   isOffersLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -46,5 +48,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUser, (state, action) => {
       state.user = action.payload.user;
+    })
+    .addCase(setFavorites, (state, action) => {
+      state.favorites = action.payload.favorites;
     });
 });
