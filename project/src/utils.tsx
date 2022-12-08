@@ -32,3 +32,5 @@ export const getSortOffers = (sortType: string, offers: Offer[]) => {
       throw new Error(`Unknown sort type: '${sortType}'!`);
   }
 };
+
+export const getRandomStringFromArray = (arr: string[]): string => arr[Math.floor((Math.random() * arr.length))];

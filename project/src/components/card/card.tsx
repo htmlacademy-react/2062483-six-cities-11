@@ -55,7 +55,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getRatingInPercent(rating, MAX_RATING)}%`}}></span>
+            <span style={{width: `${getRatingInPercent(Math.round(rating), MAX_RATING)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

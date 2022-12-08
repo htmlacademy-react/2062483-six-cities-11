@@ -100,3 +100,4 @@ export enum APIRoute {
 export const BACKEND_URL = 'https://11.react.pages.academy/six-cities';
 
 export const REQUEST_TIMEOUT = 5000;
+
