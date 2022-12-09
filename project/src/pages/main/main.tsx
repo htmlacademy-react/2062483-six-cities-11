@@ -5,10 +5,12 @@ import {getOffersByCity} from '../../utils';
 import {useAppSelector} from '../../hooks';
 import CitiesWithOffers from '../../components/cities-with-offers/cities-with-offers';
 import CitiesEmptyOffers from '../../components/cities-empty/cities-empty';
+import {getCurrentCity} from '../../store/user-actions/selectors';
+import {getOffers} from '../../store/offers-data/selectors';
 
 function MainPage(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers);
   const offersByCity = getOffersByCity(currentCity, offers);
 
   return (

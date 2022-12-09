@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks';
-import {setSortType} from '../../store/action';
+import {changeCurrentSortType} from '../../store/user-actions/user-actions';
 
 type SortTabProps = {
   isActive: boolean;
@@ -12,7 +12,7 @@ function SortTab({isActive, tabName, sortListStatus}: SortTabProps): JSX.Element
   const dispatch = useAppDispatch();
 
   const onSortClick = () => {
-    dispatch(setSortType(tabName));
+    dispatch(changeCurrentSortType(tabName));
     sortListStatus(false);
   };
 

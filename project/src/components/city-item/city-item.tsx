@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {setCurrentCity} from '../../store/action';
+import {changeCurrentCity} from '../../store/user-actions/user-actions';
 
 type CityItemPtops = {
   cityName: string;
@@ -13,7 +13,7 @@ function CityItem({cityName, isActive}: CityItemPtops): JSX.Element{
 
   const onCityClick = (evt: MouseEvent) => {
     evt.preventDefault();
-    dispatch(setCurrentCity(cityName));
+    dispatch(changeCurrentCity(cityName));
   };
 
   return (

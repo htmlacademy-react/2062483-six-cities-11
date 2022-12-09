@@ -4,6 +4,7 @@ import SortTab from '../sort-tab/sort-tab';
 import {useAppSelector} from '../../hooks';
 import {useRef, useState} from 'react';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import {getCurrentSortType} from '../../store/user-actions/selectors';
 
 function SortForm(): JSX.Element{
   const [isSortOpen, setSortType] = useState(false);
@@ -11,7 +12,7 @@ function SortForm(): JSX.Element{
   const ref = useRef(null);
   const onSortListClick = () => setSortType(!isSortOpen);
 
-  const currentSortType = useAppSelector((state) => state.sortOffersType);
+  const currentSortType = useAppSelector(getCurrentSortType);
 
   useOnClickOutside(ref, () => setSortType(false));
 

@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../constants';
+import {AppRoute} from '../../constants';
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../../pages/main/main';
 import LoginPage from '../../pages/login/login';
@@ -11,17 +11,19 @@ import {useAppSelector} from '../../hooks';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import {getAuthCheckedStatus} from '../../store/authorization-action//selectors';
+import {getOffers, getOffersDataLoadingStatus} from '../../store/offers-data/selectors';
 
 type AppOfferProps = {
   reviews: Review[];
 }
 
 function App({reviews}: AppOfferProps): JSX.Element{
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const offers = useAppSelector((state) => state.offers);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersLoaded);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const offers = useAppSelector(getOffers);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
 
-  if (!isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
+  if (isOffersDataLoading || !isAuthChecked) {
     return (
       <LoadingSpinner />
     );
@@ -42,7 +44,7 @@ function App({reviews}: AppOfferProps): JSX.Element{
           path={AppRoute.Favorites}
           element={
             <PrivateRoute>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />

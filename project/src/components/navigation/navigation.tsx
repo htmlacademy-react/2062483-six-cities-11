@@ -1,9 +1,10 @@
 import {useAppSelector} from '../../hooks/index';
 import NavigationLogin from './navigation-login';
 import NavigationNotLogin from './navigation-not-login';
+import {getUserInfo} from '../../store/authorization-action/selectors';
 
 function Navigation(): JSX.Element {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector(getUserInfo);
 
   return (
     <nav className="header__nav">

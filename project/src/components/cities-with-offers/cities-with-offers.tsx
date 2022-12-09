@@ -5,6 +5,7 @@ import SortForm from '../../components/sort-form/sort-form';
 import {Offer} from '../../types/offers-type';
 import {getSortOffers} from '../../utils';
 import {useAppSelector} from '../../hooks';
+import {getCurrentSortType} from '../../store/user-actions/selectors';
 
 type CitiesWithOffersProps = {
   offersByCity: Offer[];
@@ -12,7 +13,7 @@ type CitiesWithOffersProps = {
 }
 
 function CitiesWithOffers({offersByCity, currentCity}: CitiesWithOffersProps): JSX.Element{
-  const currentSortType = useAppSelector((state) => state.sortOffersType);
+  const currentSortType = useAppSelector(getCurrentSortType);
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
