@@ -3,7 +3,7 @@ import Layout from '../../components/layout/layout';
 import {useAppDispatch} from '../../hooks/index';
 import {Link} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../constants';
-import {setCurrentCity} from '../../store/action';
+import {changeCurrentCity} from '../../store/app/app';
 import {getRandomStringFromArray} from '../../utils';
 import LoginForm from '../../components/login-form/login-form';
 
@@ -27,7 +27,7 @@ function LoginPage(): JSX.Element {
                 className="locations__item-link"
                 to={AppRoute.Main}
                 onClick={() => {
-                  dispatch(setCurrentCity(city));
+                  dispatch(changeCurrentCity(city));
                 }}
               >
                 <span>{city}</span>

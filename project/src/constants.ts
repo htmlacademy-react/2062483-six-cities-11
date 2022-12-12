@@ -24,6 +24,17 @@ export const LogoSize = {
   }
 };
 
+export const BookmarkButtonSize = {
+  property: {
+    width: 31,
+    height: 33
+  },
+  main: {
+    width: 18,
+    height: 19
+  }
+};
+
 export const cardImageSize = {
   favorites: {
     className: 'favorites',
@@ -44,24 +55,24 @@ export const cardImageSize = {
 
 export const RATING = [
   {
-    value: 1,
-    title: 'terribly'
+    value: '5',
+    title: 'perfect',
   },
   {
-    value: 2,
-    title: 'badly',
-  },
-  {
-    value: 3,
-    title: 'not bad',
-  },
-  {
-    value: 4,
+    value: '4',
     title: 'good',
   },
   {
-    value: 5,
-    title: 'perfect',
+    value: '3',
+    title: 'not bad',
+  },
+  {
+    value: '2',
+    title: 'badly',
+  },
+  {
+    value: '1',
+    title: 'terribly'
   }
 ];
 
@@ -75,6 +86,8 @@ export const CardListClassName = {
 };
 
 export const COUNT_NEAR_PLACES = 3;
+
+export const COUNT_PROPERTY_IMG = 6;
 
 export const DEFAULT_CITY = 'Paris';
 
@@ -101,3 +114,20 @@ export const BACKEND_URL = 'https://11.react.pages.academy/six-cities';
 
 export const REQUEST_TIMEOUT = 5000;
 
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Favorites = 'FAVORITES',
+  User = 'USER',
+  Action = 'ACTION',
+  Notifications = 'NOTIFICATIONS',
+  Reviews = 'REVIEWS',
+}
+
+export enum FetchStatus {
+  IDLE = 'Idle',
+  LOADING = 'Loading',
+  SUCCESS = 'Success',
+  FAILED = 'Failed'
+}
+
+export const DEFAUTT_DURATION = 4000;
