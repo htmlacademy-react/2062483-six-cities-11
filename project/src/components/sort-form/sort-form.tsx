@@ -3,8 +3,8 @@ import {SortType} from '../../constants';
 import SortTab from '../sort-tab/sort-tab';
 import {useAppSelector} from '../../hooks';
 import {useRef, useState} from 'react';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import {getCurrentSortType} from '../../store/user-actions/selectors';
+import useOnClickOutside from '../../hooks/use-on-click-outside';
+import {getCurrentSortType} from '../../store/app/selectors';
 
 function SortForm(): JSX.Element{
   const [isSortOpen, setSortType] = useState(false);

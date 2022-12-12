@@ -1,6 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace, DEFAULT_CITY, DEFAULT_SORT_OFFERS_TYPE} from '../../constants';
-import {UserAction} from '../../types/state';
+
+type UserAction = {
+  currentCity: string;
+  currentSortType: string;
+}
 
 const initialState: UserAction = {
   currentCity: DEFAULT_CITY,

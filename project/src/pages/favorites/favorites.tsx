@@ -2,7 +2,7 @@ import FavoritesList from '../../components/favorites-list/favorites-list';
 import Layout from '../../components/layout/layout';
 import Footer from '../../components/footer/footer';
 import {useAppSelector} from '../../hooks/index';
-import {getFavoritesOffers, getFavoritesDataLoadedStatus} from '../../store/favorites-data/selectors';
+import {getFavoritesOffers, getFavoritesDataLoadedStatus} from '../../store/favorites/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 
 function FavoritesPage(): JSX.Element {

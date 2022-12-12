@@ -1,7 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, AuthorizationStatus} from '../../constants';
-import {AuthorizationAction} from '../../types/state';
 import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
+import {UserData} from '../../types/user-data';
+
+type AuthorizationAction = {
+  authorizationStatus: AuthorizationStatus;
+  user: UserData | null;
+  loginError: boolean;
+};
+
 
 const initialState: AuthorizationAction = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -15,8 +22,9 @@ export const authorizationAction = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.user = action.payload;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;

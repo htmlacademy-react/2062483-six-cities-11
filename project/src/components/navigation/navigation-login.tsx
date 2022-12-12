@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {logoutAction} from '../../store/api-actions';
-import {getUserInfo} from '../../store/authorization-action/selectors';
-import {getFavoritesOffers} from '../../store/favorites-data/selectors';
+import {getUserInfo} from '../../store/authorization/selectors';
+import {getFavoritesOffers} from '../../store/favorites/selectors';
 
 function NavigationLogin(): JSX.Element {
   const dispatch = useAppDispatch();

@@ -5,7 +5,7 @@ import SortForm from '../../components/sort-form/sort-form';
 import {Offer} from '../../types/offers-type';
 import {getSortOffers} from '../../utils';
 import {useAppSelector} from '../../hooks';
-import {getCurrentSortType} from '../../store/user-actions/selectors';
+import {getCurrentSortType} from '../../store/app/selectors';
 
 type CitiesWithOffersProps = {
   offersByCity: Offer[];

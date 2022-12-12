@@ -6,9 +6,15 @@ type User = {
 };
 
 export type Review = {
-    comment: string;
-    date: string;
-    id: number;
-    rating: number;
-    user: User;
+  comment: string;
+  date: string;
+  id: number;
+  rating: number;
+  user: User;
+};
+
+export type PostReview = {
+  id: number;
+  comment: string;
+  rating: number;
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
+import {ToastContainer} from 'react-toastify';
 import App from './components/app/app';
-import {reviews} from './mocks/reviews';
+import Notification from './components/notification/notification';
 import {store} from './store/store';
 import {fetchOffers, checkAuthAction} from './store//api-actions';
 
@@ -14,9 +15,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App reviews={reviews} />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <ToastContainer />
+    <Notification />
+    <App />
+  </Provider>
 );

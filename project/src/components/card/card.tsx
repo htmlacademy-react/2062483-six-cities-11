@@ -10,7 +10,7 @@ import {
   getWordCapitalized,
   getRatingInPercent
 } from '../../utils';
-import {Link} from 'react-router-dom';
+import {Link, generatePath} from 'react-router-dom';
 
 type CardProps = {
   offer: Offer;
@@ -18,8 +18,8 @@ type CardProps = {
   onCardMouseEnter?: (offerId: number | null) => void;
 }
 
-function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
-  const {title, type, previewImage, price, rating, isPremium, isFavorite} = offer;
+function Card({offer, cardType, onCardMouseEnter}: CardProps): JSX.Element {
+  const {title, type, previewImage, price, rating, isPremium, isFavorite, id} = offer;
   const {width, height, className} = cardImageSize[cardType];
 
   const infoClassName = cn(cardType === 'favorites' ? 'favorites__card-info' : 'place-card__info');
@@ -35,7 +35,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
           <span>Premium</span>
         </div>}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Room}`}>
+        <Link to={`${generatePath(AppRoute.Room, {id: String(id)})}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -51,7 +51,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton className={cn(isFavorite && 'place-card__bookmark-button--active')} />
+          <BookmarkButton className={cn(isFavorite && 'place-card__bookmark-button--active')} type='main' />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -60,7 +60,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps) : JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}`}>
+          <Link to={`${generatePath(AppRoute.Room, {id: String(id)})}`}>
             {title}
           </Link>
         </h2>

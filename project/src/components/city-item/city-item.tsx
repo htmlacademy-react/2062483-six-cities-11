@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {changeCurrentCity} from '../../store/user-actions/user-actions';
+import {changeCurrentCity} from '../../store/app/app';
 
 type CityItemPtops = {
   cityName: string;

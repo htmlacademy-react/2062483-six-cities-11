@@ -1,7 +1,7 @@
 import {useAppSelector} from '../../hooks/index';
 import NavigationLogin from './navigation-login';
 import NavigationNotLogin from './navigation-not-login';
-import {getUserInfo} from '../../store/authorization-action/selectors';
+import {getUserInfo} from '../../store/authorization/selectors';
 
 function Navigation(): JSX.Element {
   const user = useAppSelector(getUserInfo);

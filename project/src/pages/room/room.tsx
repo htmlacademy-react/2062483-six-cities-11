@@ -1,153 +1,129 @@
 import Map from '../../components/map/map';
-import ReviewForm from '../../components/review-form/review-form';
 import Layout from '../../components/layout/layout';
-import {Review} from '../../types/reviews-type';
-import ReviewList from '../../components/review-list/review-list';
-import {Offer} from '../../types/offers-type';
 import CardList from '../../components/card-list/card-list';
-import {COUNT_NEAR_PLACES} from '../../constants';
+import FullPageError from '../../pages/full-page-error/full-page-error';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
+import Reviews from '../../components/reviews/reviews';
+import {COUNT_NEAR_PLACES, MAX_RATING, COUNT_PROPERTY_IMG} from '../../constants';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getReviews} from '../../store/comments/selectors';
+import {getCurrentOffer, getCurrentOfferStatus, getNearbyOffers} from '../../store/offers/selectors';
+import {fetchCurrentOffer, fetchComments, fetchNearbyOffers} from '../../store/api-actions';
+import {useParams} from 'react-router-dom';
+import {useEffect} from 'react';
+import {getWordCapitalized, getRatingInPercent} from '../../utils';
+import PropertyGallery from '../../components/property-gallery/property-gallery';
 
-type RoomPageProps = {
-  reviews: Review[];
-  offers: Offer[];
-}
+function RoomPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {id} = useParams();
+  const reviews = useAppSelector(getReviews);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const currentOfferStatus = useAppSelector(getCurrentOfferStatus);
+  const property = useAppSelector(getCurrentOffer);
 
-function RoomPage({reviews, offers}: RoomPageProps): JSX.Element {
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCurrentOffer(id));
+      dispatch(fetchComments(id));
+      dispatch(fetchNearbyOffers(id));
+    }
+  }, [dispatch,id]);
+
+  if (currentOfferStatus.isLoading) {
+    return (
+      <LoadingSpinner />
+    );
+  }
+
+  if (!property || currentOfferStatus.isFailed) {
+    return (
+      <FullPageError />
+    );
+  }
+
+  const {isPremium, title, rating, type, bedrooms, maxAdults, price, goods, city, images, host, description} = property;
+
   return (
     <Layout className={[]}>
 
       <main className="page__main page__main--property">
         <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio" />
-              </div>
-            </div>
-          </div>
+          <PropertyGallery images={images.slice(0, COUNT_PROPERTY_IMG)} type={type} />
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium &&
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton className='property__bookmark-button' type='property'/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: `${getRatingInPercent(Math.round(rating), MAX_RATING)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {getWordCapitalized(type)}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
+                  {goods.map((good) => (
+                    <li className="property__inside-item" key={good}>
+                      {good}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {host.name}
                   </span>
+                  {host.isPro &&
                   <span className="property__user-status">
-                    Pro
-                  </span>
+                    {host.isPro}
+                  </span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewList reviews={reviews} />
-                <ReviewForm />
-              </section>
+              <Reviews reviews={reviews} />
             </div>
           </div>
-          <Map className="property__map" offers={offers.slice(0, COUNT_NEAR_PLACES)} city={offers[0].city.location} />
+          <Map className="property__map" offers={nearbyOffers.slice(0, COUNT_NEAR_PLACES)} city={city.location} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardList cardListType='near' offers={offers.slice(0, COUNT_NEAR_PLACES)} />
+            <CardList cardListType='near' offers={nearbyOffers.slice(0, COUNT_NEAR_PLACES)} />
           </section>
         </div>
       </main>

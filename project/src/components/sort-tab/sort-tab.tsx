@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks';
-import {changeCurrentSortType} from '../../store/user-actions/user-actions';
+import {changeCurrentSortType} from '../../store/app/app';
 
 type SortTabProps = {
   isActive: boolean;
