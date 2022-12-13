@@ -51,7 +51,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton className={cn(isFavorite && 'place-card__bookmark-button--active')} type='main' />
+          <BookmarkButton className={cn(isFavorite && 'place-card__bookmark-button--active')} type='main' isFavorite={isFavorite} id={id} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

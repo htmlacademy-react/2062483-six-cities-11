@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import {Offer} from './types/offers-type';
+import {Review} from './types/reviews-type';
 import {SortType} from './constants';
 
 export const getWordCapitalized = (word: string): string => word[0].toUpperCase() + word.slice(1);
@@ -34,3 +35,5 @@ export const getSortOffers = (sortType: string, offers: Offer[]) => {
 };
 
 export const getRandomStringFromArray = (arr: string[]): string => arr[Math.floor((Math.random() * arr.length))];
+
+export const sortReviews = (a: Review, b: Review) => dayjs(b.date).diff(dayjs(a.date));

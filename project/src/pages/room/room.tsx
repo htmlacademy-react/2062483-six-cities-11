@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import Map from '../../components/map/map';
 import Layout from '../../components/layout/layout';
 import CardList from '../../components/card-list/card-list';
@@ -14,11 +15,13 @@ import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {getWordCapitalized, getRatingInPercent} from '../../utils';
 import PropertyGallery from '../../components/property-gallery/property-gallery';
+import {sortReviews} from '../../utils';
 
 function RoomPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const reviews = useAppSelector(getReviews);
+  const sortedReviews = reviews.slice().sort(sortReviews);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const currentOfferStatus = useAppSelector(getCurrentOfferStatus);
   const property = useAppSelector(getCurrentOffer);
@@ -29,21 +32,21 @@ function RoomPage(): JSX.Element {
       dispatch(fetchComments(id));
       dispatch(fetchNearbyOffers(id));
     }
-  }, [dispatch,id]);
+  }, [dispatch, id]);
 
-  if (currentOfferStatus.isLoading) {
+  if (currentOfferStatus.isLoading || !property) {
     return (
       <LoadingSpinner />
     );
   }
 
-  if (!property || currentOfferStatus.isFailed) {
+  if (currentOfferStatus.isFailed) {
     return (
       <FullPageError />
     );
   }
 
-  const {isPremium, title, rating, type, bedrooms, maxAdults, price, goods, city, images, host, description} = property;
+  const {isPremium, title, rating, type, bedrooms, maxAdults, price, goods, city, images, host, description, isFavorite} = property;
 
   return (
     <Layout className={[]}>
@@ -61,7 +64,7 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <BookmarkButton className='property__bookmark-button' type='property'/>
+                <BookmarkButton className={cn('property__bookmark-button', isFavorite && 'place-card__bookmark-button--active')} type='property' isFavorite={isFavorite} id={id} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -115,7 +118,7 @@ function RoomPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <Reviews reviews={reviews} />
+              <Reviews reviews={sortedReviews} />
             </div>
           </div>
           <Map className="property__map" offers={nearbyOffers.slice(0, COUNT_NEAR_PLACES)} city={city.location} />
