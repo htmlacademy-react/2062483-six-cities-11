@@ -1,4 +1,4 @@
-import {AxiosInstance} from 'axios';
+import {AxiosError, AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import {Offer} from '../types/offers-type';
@@ -9,6 +9,8 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {Review, PostReview} from '../types/reviews-type.js';
 import {pushNotification} from './notifications/notifications';
+import {StatusCodes} from 'http-status-codes';
+import {FavoriteStatus} from '../types/favorite-status.js';
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -40,6 +42,11 @@ export const fetchCurrentOffer = createAsyncThunk<Offer, string, {
 
       return data;
     } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === StatusCodes.NOT_FOUND) {
+          dispatch(redirectToRoute(AppRoute.NotFound));
+        }
+      }
       dispatch(pushNotification({type: 'error', message: 'Failed to get hotel'}));
       throw error;
     }
@@ -62,6 +69,24 @@ export const fetchFavorites = createAsyncThunk<Offer[], undefined, {
       throw error;
     }
   }
+);
+
+export const setFavoriteStatus = createAsyncThunk<Offer, FavoriteStatus, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'setFavoriteStatus',
+  async ({id, status}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`, {id, status});
+
+      return data;
+    } catch (error) {
+      dispatch(pushNotification({type: 'error', message: 'Failed to set favorite'}));
+      throw error;
+    }
+  },
 );
 
 export const fetchComments = createAsyncThunk<Review[], string, {
@@ -94,7 +119,7 @@ export const postComment = createAsyncThunk<Review[], PostReview, {
 
       return data;
     } catch (error) {
-      dispatch(pushNotification({type: 'error', message: 'Failed to send comments'}));
+      dispatch(pushNotification({type: 'error', message: 'Failed to send comment'}));
       throw error;
     }
   }
@@ -124,8 +149,9 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {extra: api}) => {
+  async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
+    dispatch(fetchFavorites());
     return data;
   },
 );
@@ -141,6 +167,7 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
       const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(data.token);
       dispatch(redirectToRoute(AppRoute.Main));
+      dispatch(fetchFavorites());
 
       return data;
     } catch (error) {
@@ -161,6 +188,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
+      dispatch(fetchOffers());
       dispatch(redirectToRoute(AppRoute.Login));
     } catch (error) {
       dispatch(pushNotification({type: 'error', message: 'Failed to logout, please try again'}));

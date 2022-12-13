@@ -1,6 +1,6 @@
 .section {
   text-align: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 
@@ -17,7 +17,7 @@
 	padding: 0 15px;
 	margin: 0 15px 15px 0;
 	outline: none;
-	border: 1px solid #4071a4;
+	border: 1px solid #6597cd;
 	border-radius: 5px;
 	height: 38px;
 	line-height: 38px;

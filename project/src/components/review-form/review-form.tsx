@@ -1,6 +1,6 @@
 import {ChangeEvent, useState, FormEvent, useEffect} from 'react';
 import Rating from '../rating/rating';
-import {RATING} from '../../constants';
+import {RATING, CommentLength} from '../../constants';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postComment} from '../../store/api-actions';
@@ -29,14 +29,17 @@ function ReviewForm(): JSX.Element{
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    id && dispatch(postComment(({
-      id: +id,
-      rating: +reviewData.rating,
-      comment: reviewData.review,
-    })));
+
+    if (id) {
+      dispatch(postComment({
+        id: +id,
+        rating: +reviewData.rating,
+        comment: reviewData.review,
+      }));
+    }
   };
 
-  const isValidComment = (currentReview: string): boolean => currentReview.length >= 50 && currentReview.length < 300;
+  const isValidComment = (currentReview: string): boolean => currentReview.length >= CommentLength.MIN && currentReview.length < CommentLength.MAX;
   const isDisabled = (currentRating: string, currentReview: string): boolean => !(currentRating && isValidComment(currentReview));
 
   return (

@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
+  NotFound = '/*'
 }
 
 export enum AuthorizationStatus {
@@ -12,6 +13,18 @@ export enum AuthorizationStatus {
 }
 
 export const MAX_RATING = 5;
+
+export const CommentLength = {
+  MAX: 300,
+  MIN: 50
+};
+
+export const MAX_REVIEW_COUNT = 10;
+
+export enum FavoriteStatus {
+  Favorite = 1,
+  NotFavorite = 0
+}
 
 export const LogoSize = {
   header: {

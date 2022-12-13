@@ -8,8 +8,19 @@ import RoomPage from '../../pages/room/room';
 import NotFoundPage from '../../pages/not-found/not-found';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import {getAuthCheckedStatus} from '../../store/authorization/selectors';
+import {useAppSelector} from '../../hooks';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 function App(): JSX.Element{
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+
+  if (!isAuthChecked) {
+    return (
+      <LoadingSpinner />
+    );
+  }
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -24,7 +35,7 @@ function App(): JSX.Element{
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute>
+            <PrivateRoute >
               <FavoritesPage />
             </PrivateRoute>
           }
