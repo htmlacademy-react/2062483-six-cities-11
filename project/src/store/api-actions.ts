@@ -149,8 +149,9 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {extra: api}) => {
+  async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
+    dispatch(fetchFavorites());
     return data;
   },
 );
@@ -187,6 +188,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
+      dispatch(fetchOffers());
       dispatch(redirectToRoute(AppRoute.Login));
     } catch (error) {
       dispatch(pushNotification({type: 'error', message: 'Failed to logout, please try again'}));

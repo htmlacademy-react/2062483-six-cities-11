@@ -22,7 +22,7 @@ function Card({offer, cardType, onCardMouseEnter}: CardProps): JSX.Element {
   const {title, type, previewImage, price, rating, isPremium, isFavorite, id} = offer;
   const {width, height, className} = cardImageSize[cardType];
 
-  const infoClassName = cn(cardType === 'favorites' ? 'favorites__card-info' : 'place-card__info');
+  const infoClassName = cn(cardType === 'favorites' ? 'favorites__card-info place-card__info' : 'place-card__info');
 
   return (
     <article
