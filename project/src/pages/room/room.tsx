@@ -22,7 +22,7 @@ function RoomPage(): JSX.Element {
   const {id} = useParams();
   const reviews = useAppSelector(getReviews);
   const sortedReviews = reviews.slice().sort(sortReviews);
-  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const nearbyOffers = useAppSelector(getNearbyOffers).slice(0, COUNT_NEAR_PLACES);
   const currentOfferStatus = useAppSelector(getCurrentOfferStatus);
   const property = useAppSelector(getCurrentOffer);
 
@@ -121,7 +121,7 @@ function RoomPage(): JSX.Element {
               <Reviews reviews={sortedReviews} />
             </div>
           </div>
-          <Map className="property__map" offers={nearbyOffers.slice(0, COUNT_NEAR_PLACES)} city={city.location} />
+          <Map className="property__map" offers={[...nearbyOffers, property]} city={city.location} selectedOffer={property.id} />
         </section>
         <div className="container">
           <section className="near-places places">
