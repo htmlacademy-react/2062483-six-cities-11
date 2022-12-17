@@ -68,9 +68,9 @@ function LoginForm(): JSX.Element {
   };
 
   const isValidForm = Object.values(formState).reduce((checkValid, currentState) => {
-    checkValid = Boolean(currentState.value) && !currentState.error;
+    checkValid = Boolean(currentState.value) && !currentState.error && checkValid;
     return checkValid;
-  }, false);
+  }, true);
 
   return(
     <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>

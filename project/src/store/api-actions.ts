@@ -17,7 +17,7 @@ export const fetchOffers = createAsyncThunk<Offer[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchOffers',
+  'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offer[]>(APIRoute.Offers);
@@ -35,7 +35,7 @@ export const fetchCurrentOffer = createAsyncThunk<Offer, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchCurrentOffer',
+  'data/fetchCurrentOffer',
   async (hotelId, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${hotelId}`);
@@ -58,7 +58,7 @@ export const fetchFavorites = createAsyncThunk<Offer[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchFavorites',
+  'data/fetchFavorites',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offer[]>(APIRoute.Favorite);
@@ -76,7 +76,7 @@ export const setFavoriteStatus = createAsyncThunk<Offer, FavoriteStatus, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'setFavoriteStatus',
+  'app/setFavoriteStatus',
   async ({id, status}, {dispatch, extra: api}) => {
     try {
       const {data} = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`, {id, status});
@@ -94,7 +94,7 @@ export const fetchComments = createAsyncThunk<Review[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchComments',
+  'data/fetchComments',
   async (hotelId, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Review[]>(`${APIRoute.Reviews}/${hotelId}`);
@@ -112,7 +112,7 @@ export const postComment = createAsyncThunk<Review[], PostReview, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'postComment',
+  'app/postComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     try {
       const {data} = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, {comment, rating});
@@ -130,7 +130,7 @@ export const fetchNearbyOffers = createAsyncThunk<Offer[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchNearbyOffers',
+  'data/fetchNearbyOffers',
   async (hotelId, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${hotelId}/nearby`);
