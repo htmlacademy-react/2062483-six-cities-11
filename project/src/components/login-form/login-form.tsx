@@ -5,6 +5,7 @@ import {useAppDispatch} from '../../hooks/index';
 import {loginAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks';
 import {getLoginError} from '../../store/authorization/selectors';
+import {FetchStatus} from '../../constants';
 
 const formFields = {
   email: 'E-mail',
@@ -25,7 +26,8 @@ type FromStateProps = {
 function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector(getLoginError);
+  const loadingStatus = useAppSelector(getLoginError);
+  const isLoading = loadingStatus === FetchStatus.LOADING;
 
   const [formState, setFormState] = useState<FromStateProps>({
     email: {
